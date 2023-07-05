@@ -17,7 +17,6 @@ Hosts all terraform code to create aws resources per environments. defaults to d
 - Already Provided via email
 
 ## Missing:
-- ACL Access Configs
 - ALB HTTPS Configs
 
 ## Usage

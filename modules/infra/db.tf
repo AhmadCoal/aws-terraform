@@ -34,6 +34,7 @@ module "db" {
   }
 
   create_db_subnet_group              = true
+  db_subnet_group_name                = "${var.environment}-postgres"
   subnet_ids                          = lookup(var.private_db_subnets, var.environment)
   family                              = "postgres11.0"
   major_engine_version                = "11.0"

@@ -13,17 +13,17 @@ module "alb" {
   target_groups = [
     {
       backend_protocol = "HTTP"
-      backend_port     = 80
+      backend_port     = "${var.application_port}"
       target_type      = "instance"
       targets = {
         my_target = {
           # could be done better but for time sake.
           target_id    = "${aws_instance.wpserver[0].id}"
-          port = 80
+          port = "${var.application_port}"
         }
         my_other_target = {
           target_id     = "${aws_instance.wpserver[1].id}"
-          port = 80
+          port = "${var.application_port}"
         }
       }
     }

@@ -31,15 +31,15 @@ resource "aws_security_group" "ssh" {
     from_port         = 22
     to_port           = 22
     protocol          = "tcp"
-    description       = "Allow ping from all private subnets within the vpc."
+    description       = "Allow ssh to all subnets within the vpc."
   }
 
   ingress {
-    cidr_blocks       = [lookup(var.vpc_cidr, var.environment)]
+    cidr_blocks       = [lookup(var.vpc_cidr, var.environment)] // [0.0.0.0/0]
     from_port         = 22
     to_port           = 22
     protocol          = "tcp"
-    description       = "Allow ssh from localhost"
+    description       = "Allow ssh from all subnets within"
   }
 }
 

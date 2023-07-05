@@ -4,7 +4,9 @@ resource "aws_instance" "bastion" {
   instance_type               = "t3a.medium"
   key_name                    = var.aws_ssh_key_name
   subnet_id                   = local.public_subnets[0]
-  vpc_security_group_ids      = [aws_security_group.ssh.id]
+  vpc_security_group_ids      = [aws_security_group.ssh.id,
+                                aws_security_group.ping_internal.id
+                                ]
   ami                         = "ami-0b807a42361daad08"
 
   ebs_block_device {

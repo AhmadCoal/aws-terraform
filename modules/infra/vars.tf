@@ -27,7 +27,7 @@ variable "vpc_cidr" {
 
 variable private_subnets {
   type    = list
-  default = ["10.1.2.0/24","10.1.3.0/24","10.1.4.0/24","10.1.5.0/24"]
+  default = ["10.1.2.0/24","10.1.3.0/24"]
 }
 
 variable "private_db_subnets" {
@@ -37,20 +37,13 @@ variable "private_db_subnets" {
   }
 }
 
+# need to remove this one and just use private subnets but for now and time will leave it.
 variable "private_wp_subnets" {
   type    = map(list(string))
   default = {
     dev   = ["10.1.2.0/24","10.1.3.0/24"]
   }
 }
-
-# variable private_subnets {
-#   type    = map(map(list(string)))
-#   default = {
-#     db    =  ["10.1.5.0/24","10.1.4.0/24"]
-#     wp    =  ["10.1.2.0/24","10.1.3.0/24"]
-#   }
-# }
 
 # DATABASE
 variable "database_port" {
@@ -63,10 +56,16 @@ variable "deletion_protection" {
   default = true
 }
 
+
 # WP APPLICATION
 variable "application_port" {
   type = number
   default = 80
+}
+
+variable "application_secure_port" {
+  type = number
+  default = 443
 }
 
 variable "wp_instance_type" {
@@ -80,4 +79,3 @@ variable "aws_ssh_key_name" {
   default = "aws_ec2_access_key"
 }
 
-# ALB
