@@ -1,30 +1,26 @@
-## Project Structure
-
-### Environments Folder
-Host different environment folders which hosts environments specific variables.
-Note: This is empty not completed for now. so to tun the terraform init/plan/apply you need to run it from the modules/ folder.
-
-### Modules Folder
-Hosts all terraform code to create aws resources per environments. defaults to dev env.
+# Project And Structure
+Projects allow you to deploy aws resources using terraform modules defined under modules folder. Project follows enviornment based deployment workflow using below folders.
+- Environments Folder Contains enviornments specific variables and files that will be passed down to modules being deployed in the enviornment.
+- Modules Folder contains all the terraform modules that can be deployed into differnt enviornment.
 
 ## Prereqs
 - AWS Cloud Account
-- AWS Cli
+- AWS Cli and configured locally to connect to aws.
 - Configured aws dev profile with access to aws cloud. RUN >  aws configure --profile dev 
 - Terraform
 
-## ARchitecture
+## Architecture
 - Already Provided via email
 
 ## Missing:
 - ALB HTTPS Configs
 
 ## Usage
+- Example below to deploy the infra modules in the dev enviornment.
 ```
-cd modules/infra
-run > terraform init
-run > terraform plan
-run > terraform apply
+RUN > terraform -chdir=environments/dev init
+RUN > terraform -chdir=environments/dev plan
+run > terraform -chdir=environments/dev apply
 ```
 
 #### Resources Used
@@ -44,5 +40,4 @@ run > terraform apply
 - https://www.youtube.com/watch?v=81rQ5KgETs0&ab_channel=AntonPutra
 - https://registry.terraform.io/modules/terraform-aws-modules/rds/aws/latest
 - https://developer.hashicorp.com/terraform/language/functions/cidrsubnet
-
 

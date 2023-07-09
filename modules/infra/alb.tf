@@ -7,8 +7,8 @@ module "alb" {
   load_balancer_type    = "application"
 
   vpc_id                = module.vpc.vpc_id
-  subnets               = local.public_subnets
-  security_groups       = [aws_security_group.alb_external.name]
+  subnets               = module.vpc.public_subnets
+  security_groups       = [aws_security_group.alb_external.id]
 
   target_groups = [
     {
@@ -17,7 +17,6 @@ module "alb" {
       target_type      = "instance"
       targets = {
         my_target = {
-          # could be done better but for time sake.
           target_id    = "${aws_instance.wpserver[0].id}"
           port = "${var.application_port}"
         }

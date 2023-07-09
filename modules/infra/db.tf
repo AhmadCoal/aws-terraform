@@ -4,7 +4,7 @@ module "db" {
   identifier = "${var.environment}-postgres"
 
   engine                              = "postgres"
-  engine_version                      = "11.0"
+  engine_version                      = "11.16"
   instance_class                      = "db.t3.micro"
   allocated_storage                   = 5
 
@@ -35,20 +35,11 @@ module "db" {
 
   create_db_subnet_group              = true
   db_subnet_group_name                = "${var.environment}-postgres"
-  subnet_ids                          = lookup(var.private_db_subnets, var.environment)
-  family                              = "postgres11.0"
-  major_engine_version                = "11.0"
+  subnet_ids                          = module.vpc.database_subnets
+  family                              = "postgres11"
+  major_engine_version                = "11.16"
   deletion_protection                 = var.deletion_protection
 
-  parameters = [
-    {
-      name  = "character_set_client"
-      value = "utf8mb4"
-    },
-    {
-      name  = "character_set_server"
-      value = "utf8mb4"
-    }
-  ]
+  parameters = []
   options = []
 }

@@ -3,7 +3,7 @@ resource "aws_instance" "bastion" {
   associate_public_ip_address = true
   instance_type               = "t3a.medium"
   key_name                    = var.aws_ssh_key_name
-  subnet_id                   = local.public_subnets[0]
+  subnet_id                   = module.vpc.public_subnets[count.index]
   vpc_security_group_ids      = [aws_security_group.ssh.id,
                                 aws_security_group.ping_internal.id
                                 ]
@@ -24,4 +24,9 @@ resource "aws_instance" "bastion" {
     ignore_changes = [ami]
   }
 
+}
+
+resource "aws_eip" "bastioneip" {
+  instance = "${aws_instance.bastion[0].id}"
+  vpc      = true
 }

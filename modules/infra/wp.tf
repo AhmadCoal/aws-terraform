@@ -1,9 +1,9 @@
 resource "aws_instance" "wpserver" {
   count                       = 2
-  ami                         = "ami-06b3060099ef02de8"
+  ami                         = "ami-026ebd4cfe2c043b2"
   instance_type               = var.wp_instance_type
   key_name                    = var.aws_ssh_key_name
-  subnet_id                   = element(lookup(var.private_wp_subnets, var.environment), count.index)
+  subnet_id                   = module.vpc.private_subnets[count.index]
   vpc_security_group_ids      = [aws_security_group.wp_internal.id, 
                                 aws_security_group.ping_internal.id,
                                 aws_security_group.ssh.id]
