@@ -79,3 +79,8 @@ variable "aws_ssh_key_name" {
   default = "aws_ec2_access_key"
 }
 
+# Domain Name
+variable "domain_name" {
+  type = string
+  default = "myapp-example.com"
+}

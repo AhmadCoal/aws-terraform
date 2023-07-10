@@ -30,6 +30,31 @@ locals {
                 "rule_number": 101,
                 "to_port": 443
               },
+              #Get/Send icmp traffic from/to internet. 80
+              {
+                "cidr_block": "0.0.0.0/0",
+                "from_port": 0,
+                "protocol": "icmp",
+                "rule_action": "allow",
+                "rule_number": 119,
+                "to_port": 0
+              },
+              {
+                "cidr_block": "${var.private_subnets[0]}",
+                "from_port": 0,
+                "protocol": "icmp",
+                "rule_action": "allow",
+                "rule_number": 120,
+                "to_port": 0
+              },
+              {
+                "cidr_block": "${var.private_subnets[1]}",
+                "from_port": 0,
+                "protocol": "icmp",
+                "rule_action": "allow",
+                "rule_number": 121,
+                "to_port": 0
+              },
               #Get/Send traffic from/to wp/private. 443
               {
                 "cidr_block": "${var.private_subnets[0]}",
@@ -82,8 +107,7 @@ locals {
                 "rule_action": "allow",
                 "rule_number": 107,
                 "to_port": 80
-              },
-
+              }
     ]
  
     private_acl_in_out_access = [
@@ -154,7 +178,39 @@ locals {
                 "rule_action": "allow",
                 "rule_number": 115,
                 "to_port": 22
-              }
+              },
+              {
+                "cidr_block": "${local.public_subnets[0]}",
+                "from_port": 0,
+                "protocol": "icmp",
+                "rule_action": "allow",
+                "rule_number": 122,
+                "to_port": 0
+              },
+              {
+                "cidr_block": "${local.public_subnets[1]}",
+                "from_port": 0,
+                "protocol": "icmp",
+                "rule_action": "allow",
+                "rule_number": 123,
+                "to_port": 0
+              },
+              {
+                "cidr_block": "${var.private_subnets[0]}",
+                "from_port": 22,
+                "protocol": "tcp",
+                "rule_action": "allow",
+                "rule_number": 124,
+                "to_port": 22
+              },
+              {
+                "cidr_block": "${var.private_subnets[1]}",
+                "from_port": 22,
+                "protocol": "tcp",
+                "rule_action": "allow",
+                "rule_number": 125,
+                "to_port": 22
+              },
     ]
 
     db_acl_in_out_access = [

@@ -9,8 +9,16 @@ resource "aws_security_group" "ping_internal" {
 
   ingress {
     cidr_blocks       = var.private_subnets
-    from_port         = -1
-    to_port           = -1
+    from_port         = 0
+    to_port           = 0
+    protocol          = "icmp"
+    description       = "Allow ping from all private subnets within the vpc."
+  }
+
+  egress {
+    cidr_blocks       = var.private_subnets
+    from_port         = 0
+    to_port           = 0
     protocol          = "icmp"
     description       = "Allow ping from all private subnets within the vpc."
   }
